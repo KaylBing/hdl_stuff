@@ -1,0 +1,16 @@
+/** Mostly correct dmux */
+CHIP DMux {
+    IN in, sel;
+    OUT a, b;
+
+    PARTS:
+    Nand(a=in, b=in, out=notIn);
+
+    Nand(a=sel, b=sel, out=notSel);
+
+    Nand(a=in, b=notSel, out=inAndNotSel);
+    Nand(a=notIn, b=inAndNotSel, out=a);
+
+    Nand(a=in, b=sel, out=inAndSel);
+    Nand(a=notIn, b=inAndSel, out=b);
+}
