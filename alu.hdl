@@ -30,8 +30,7 @@ Mux16(a=xandy,b=xplusy,sel=f,out=fxy);  //chose function
 Not16(in=fxy,out=nfxy);      //not the output or not
 Mux16(a=fxy,b=nfxy,sel=no,out=oo);  //chose which
 
-
-Or16Way(in=oo,out=o);  //for zr
+Or16(in=oo,out=o);  //for zr
 Not(in=o,out=zr);
 
 And16(a[0..15]=true,b=oo,out[15]=ng,out[0..14]=drop); //ng
