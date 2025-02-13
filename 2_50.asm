@@ -1,33 +1,27 @@
-// Initialize variables
-@sum    // sum = 0
-M=0
-@i      // i = 2 (first even number)
 @2
 D=A
-M=D
+@i    // i refers to some mem. location
+M=D    // i = 2
+@sum    // sum refers to some mem. location
+M=0    // sum = 0
 
 (LOOP)
-@i      // Load i
-D=M
-@50     // Load 50
-D=D-A   // D = i - 50
-@END    // If i > 50, jump to END
-D;JGT
-
-@i      // Load i
-D=M
-@sum    // Load sum
-M=D+M   // sum = sum + i
-
-@i      // Load i
-@2
-D=A
-M=D   // i = i + 2 (next even number)
-
-@LOOP   // Repeat loop
-0;JMP
-
+    @i
+    D=M    // D = i
+    @50
+    D=D-A
+    @END
+    D;JGT    // If (i-50) > 0 goto END
+    @i
+    D=M    // D=i
+    @sum
+    M=D+M    // sum=sum+i
+    @2
+    D=A
+    @i
+    M=D+M    // i=i+1
+    @LOOP
+    0;JMP    //Goto LOOP
 (END)
-@END    // Infinite loop to end program
-0;JMP
-
+    @END
+    0;JMP
