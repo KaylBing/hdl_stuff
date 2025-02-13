@@ -2,7 +2,9 @@
 @sum    // sum = 0
 M=0
 @i      // i = 2 (first even number)
-M=2
+@2
+D=A
+M=D
 
 (LOOP)
 @i      // Load i
@@ -18,7 +20,9 @@ D=M
 M=D+M   // sum = sum + i
 
 @i      // Load i
-M=M+2   // i = i + 2 (next even number)
+@2
+D=A
+M=D   // i = i + 2 (next even number)
 
 @LOOP   // Repeat loop
 0;JMP
@@ -26,3 +30,4 @@ M=M+2   // i = i + 2 (next even number)
 (END)
 @END    // Infinite loop to end program
 0;JMP
+
