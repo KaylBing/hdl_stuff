@@ -24,4 +24,4 @@ M=0    // sum = 0
     0;JMP    //Goto LOOP
 (END)
     @END
-    0;JMP
+    0;JMP // Circular loop to sort of stall once the end of real code is reached
