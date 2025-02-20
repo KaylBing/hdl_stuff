@@ -1,12 +1,27 @@
 CHIP Memory {
-    IN in[16], load, address[15];
-    OUT out[16];
+    IN in[16], load, address[15];  // 16-bit input data, load signal, and 15-bit address
+    OUT out[16];                   // 16-bit output data
 
     PARTS:
-	DMux4Way(in=load, sel=address[13..14], a=loadram1, b=loadram2, c=loadscreen, d=loadkbd);
-	Or(a=loadram1, b=loadram2, out=loadram);
-    RAM16K(in=in, load=loadram, address=address[0..13], out=ramout);
-    Screen(in=in, load=loadscreen, address=address[0..12], out=scrout);
-    Keyboard(out=kbout);
-    Mux4Way16(a=ramout, b=ramout, c=scrout, d=kbout, sel=address[13..14], out=out);
+        // Demultiplex the 'load' signal to one of four memory components based on address[13..14]
+        DMux4Way(in=load, sel=address[13..14], a=loadram1, b=loadram2, c=loadscreen, d=loadkbd);
+
+        // Combine load signals for RAM1 and RAM2 into a single 'loadram' signal
+        Or(a=loadram1, b=loadram2, out=loadram);
+
+        // RAM16K: 16K memory block for general-purpose storage
+        // Uses the lower 14 bits of the address (address[0..13]) and outputs data to 'ramout'
+        RAM16K(in=in, load=loadram, address=address[0..13], out=ramout);
+
+        // Screen: Memory-mapped I/O for the display
+        // Uses the lower 13 bits of the address (address[0..12]) and outputs data to 'scrout'
+        Screen(in=in, load=loadscreen, address=address[0..12], out=scrout);
+
+        // Keyboard: Memory-mapped I/O for keyboard input
+        // Outputs the current state of the keyboard to 'kbout'
+        Keyboard(out=kbout);
+
+        // Multiplexer to select the appropriate memory component's output based on address[13..14]
+        // Chooses between RAM, Screen, or Keyboard data and routes it to 'out'
+        Mux4Way16(a=ramout, b=ramout, c=scrout, d=kbout, sel=address[13..14], out=out);
 }
