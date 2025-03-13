@@ -121,7 +121,7 @@ def getComp(command):
         command = command.split(';')[0]
     return command
 
-# Function to extract jump mnemonic from C command
+# extract jump mnemonic from C command
 def getJump(command):
     if ';' in command:
         return command.split(';')[1]
@@ -139,16 +139,16 @@ def jump2bin(mnemonic):
 def processA(line, lineNo):
     global next_variable_address
     symbol = getSymbol(line)
-    if symbol.isdigit():  # If it's a number
+    if symbol.isdigit():  # if number
         address = int(symbol)
-    else:  # If it's a symbol
+    else:  # if symbol
         if symbol not in symbol_table:
             symbol_table[symbol] = next_variable_address
             next_variable_address += 1
         address = symbol_table[symbol]
     return '0' + format(address, '015b')
 
-# Function to process C-commands
+# process C-commands
 def processC(line):
     dest = getDest(line)
     comp = getComp(line)
