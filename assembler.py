@@ -81,10 +81,9 @@ symbol_table = {
     'KBD': 24576
 }
 
-# Counter for variable addresses
 next_variable_address = 16
 
-# Function to clean and parse lines
+# clean and parse lines
 def clean_lines(lines):
     cleaned_lines = []
     for line in lines:
@@ -94,7 +93,6 @@ def clean_lines(lines):
             cleaned_lines.append(line)
     return cleaned_lines
 
-# Function to determine command type
 def commandType(command):
     if command.startswith('@'):
         return "A_COMMAND"
@@ -103,7 +101,6 @@ def commandType(command):
     else:
         return "C_COMMAND"
 
-# Function to extract symbol from A or L commands
 def getSymbol(command):
     if commandType(command) == "A_COMMAND":
         return command[1:]
@@ -111,13 +108,12 @@ def getSymbol(command):
         return command[1:-1]
     return None
 
-# Function to extract dest mnemonic from C command
 def getDest(command):
     if '=' in command:
         return command.split('=')[0]
     return None
 
-# Function to extract comp mnemonic from C command
+# extract comp mnemonic from C command
 def getComp(command):
     if '=' in command:
         command = command.split('=')[1]
@@ -131,19 +127,15 @@ def getJump(command):
         return command.split(';')[1]
     return None
 
-# Function to convert dest mnemonic to binary
 def dest2bin(mnemonic):
     return dest_dict.get(mnemonic, '000')
 
-# Function to convert comp mnemonic to binary
 def comp2bin(mnemonic):
     return comp_dict.get(mnemonic, '0000000')
 
-# Function to convert jump mnemonic to binary
 def jump2bin(mnemonic):
     return jump_dict.get(mnemonic, '000')
 
-# Function to process A-commands
 def processA(line, lineNo):
     global next_variable_address
     symbol = getSymbol(line)
