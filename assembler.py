@@ -155,13 +155,13 @@ def processC(line):
     jump = getJump(line)
     return '111' + comp2bin(comp) + dest2bin(dest) + jump2bin(jump)
 
-# Function to process L-commands
+# to process L-commands
 def processL(line, lineNo):
     symbol = getSymbol(line)
     if symbol not in symbol_table:
         symbol_table[symbol] = lineNo
 
-# First pass: Build symbol table
+# first pass Build symbol table, maybe, hopefully
 def pass_1(file):
     cleaned_lines = clean_lines(file)
     lineNo = 0
@@ -171,7 +171,7 @@ def pass_1(file):
         else:
             lineNo += 1
 
-# Second pass: Generate binary code
+# second pass makes actual binary
 def pass_2(file):
     cleaned_lines = clean_lines(file)
     binary_output = []
@@ -185,7 +185,6 @@ def pass_2(file):
             pass  # Labels are already processed in pass_1
     return binary_output
 
-# Main function to assemble the file
 def assemble_file(filename):
     try:
         with open(filename, 'r') as file:
